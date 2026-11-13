@@ -1,0 +1,236 @@
+# =============
+# 1. Keys
+# =============
+# Environment variables & local secrets
+.env
+.env.*
+*.env
+.env.local
+.env.*.local
+.env.development
+.env.production
+.env.test
+!.env.example
+!.env.template
+
+# keys
+*.pem
+*.key
+*.pkcs12
+*.pfx
+*.p12
+*.crt
+*.cer
+*.der
+*.csr
+*.keystore
+*.jks
+id_rsa*
+id_ed25519*
+id_ecdsa*
+id_dsa*
+known_hosts
+authorized_keys
+
+# cloud
+.aws/
+credentials
+.azure/
+*gcp*.json
+*service_account*.json
+client_secret*.json
+*credentials*.json
+.gcloud/
+.kube/
+kubeconfig
+
+# platforms
+.cache/
+hf_*
+wandb/
+.wandb*
+mlruns/
+mlartifacts/
+kaggle.json
+.kaggle/
+*.token
+*token*.json
+*api_key*
+.git-credentials
+.gitconfig.local
+
+# local configs
+configs/**/*.local.yaml
+configs/**/*.local.yml
+configs/**/*.secret.yaml
+configs/**/*.secret.yml
+local_settings.py
+secrets.yaml
+secrets.json
+*.secret
+
+
+# =============
+# 2. Data
+# =============
+# Full raw and processed dataset directory
+data/
+data/**
+
+# Binary & tabular data formats
+*.csv
+*.tsv
+*.parquet
+*.feather
+*.arrow
+*.npz
+*.npy
+*.pkl
+*.pickle
+*.h5
+*.hdf5
+*.mat
+
+# db
+*.duckdb
+*.duckdb.wal
+*.db
+*.sqlite
+*.sqlite3
+*.kdb
+*.rdb
+*.sql
+*.dump
+
+
+# =============
+# 3. Model
+# =============
+# Pretrained
+pretrained/
+models/
+checkpoints/
+checkpoint-*/
+
+# Training
+outputs/*
+!outputs/evaluations/
+!outputs/evaluations/**
+
+# Weight
+*.safetensors
+*.pt
+*.pth
+*.bin
+*.ckpt
+*.onnx
+*.gguf
+*.tflite
+*.pb
+*.engine
+
+
+# =============
+# 4. LOGS, etc
+# =============
+logs/
+*.log
+*.out
+*.err
+core
+core.*
+*.dmp
+crash*.log
+.coverage
+.coverage.*
+htmlcov/
+*.prof
+*.pstats
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+
+# =============
+# 5. JUPYTER
+# =============
+.ipynb_checkpoints/
+*-checkpoint.ipynb
+.jupyter/
+
+
+# =============
+# 6. PYTHON
+# =============
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.pyd
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+env.bak/
+venv.bak/
+
+# Packaging & builds
+build/
+dist/
+*.egg-info/
+*.egg
+pip-wheel-metadata/
+
+
+# =============
+# 7. os, ide
+# =============
+# Windows
+[Tt]humbs.db
+[Tt]humbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+[Dd]esktop.ini
+$RECYCLE.BIN/
+*.lnk
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+
+# IDEs & text editors
+.idea/
+.vscode/*
+!.vscode/extensions.json
+*.swp
+*.swo
+*.sublime-workspace
+*.sublime-project
+.history/
+
+
+# =============
+# 8. temp
+# =============
+*.tmp
+*.temp
+*.bak
+*.backup
+*.old
+*.orig
+scratch/
+tmp/
+temp/
+Eval*
