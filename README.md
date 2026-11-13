@@ -2,22 +2,12 @@
 
 ---
 
-Repository untuk fine-tuning model fondasi kuantitatif **Kronos** (*A Foundation Model for the Language of Financial Markets*, Tsinghua University, AAAI 2026) secara spesifik per bursa saham:
+Repository untuk fine-tuning model fondasi kuantitatif **Kronos** (*A Foundation Model for the Language of Financial Markets*, Tsinghua University, AAAI 2026) pada bursa saham:
 
 1. **IDX** (Indonesia Stock Exchange) 🇮🇩 - *Active*
 2. **NASDAQ** (United States) 🇺🇸 - *Data Ready*
 3. **TSE** (Tokyo Stock Exchange, Japan) 🇯🇵 - *Data Ready*
 4. **NSE** (National Stock Exchange of India) 🇮🇳 - *Data Ready*
-
----
-
-## ⚠️ Batasan & Peringatan Risiko Model (Operational Caution)
-
-> [!CAUTION]
-> **JANGAN GUNAKAN KRONOS-FT IDX UNTUK PREDIKSI CANDLE MINGGUAN (WEEKLY CANDLESTICK / > 5 HARI BURSA)!**  
-> Model ini dikurasi dan dilatih secara spesifik untuk **eksekusi taktis Candle Intraday (`1T`–`1H`) dan Candle Harian (`Daily` / 3–5 candle)** dengan alokasi bobot 95%.  
-> Pada skala mingguan/bulanan, difusi volatilitas ($\sigma \sqrt{\Delta t}$) melebar hingga $4.5\times$ lipat dan memicu distorsi anatomi candlestick (*body & shadow deformation*). Selain itu, pergerakan candle mingguan didominasi aksi korporasi dan variabel makroekonomi yang tidak terliput oleh data lilin masa lalu.  
-> **Mandat Operasional:** Dilarang menggunakan candle mingguan sebagai sinyal eksekusi/stop loss. Gunakan model hanya untuk proyeksi candle harian **3–5 hari bursa** dengan prinsip *Rolling Forecast* (perbarui bar EOD setiap sore pukul 16:15 WIB). Detail spesifikasi dapat dibaca pada [`docs/IDX_PRODUCTION.md`](docs/IDX_PRODUCTION.md).
 
 ---
 
@@ -33,7 +23,7 @@ Repository untuk fine-tuning model fondasi kuantitatif **Kronos** (*A Foundation
   - `D` (Harian)
   - `W` (Mingguan)
 - **Zero-Lookahead Temporal Splitting:** Pemisahan dataset (Train 80%, Val 10%, Test 10%) dilakukan secara kronologis ketat.
-- **Dual-Model Hub Loading:** Mendukung pemuatan fleksibel baik dari Hugging Face Hub subfolder (`subfolder="idx/predictor"`), direktori lokal terpisah, maupun **folder tunggal flat (`models/`)** dengan nama file spesifik bursa bebas tabrakan (`idx_tokenizer.safetensors` & `idx_predictor.safetensors`).
+- **Dual-Model Hub Loading:** Mendukung pemuatan fleksibel baik dari Hugging Face Hub  atau dari direktori lokal (`<market>_tokenizer.safetensors` & `<market>_predictor.safetensors`).
 
 ---
 
@@ -41,7 +31,7 @@ Repository untuk fine-tuning model fondasi kuantitatif **Kronos** (*A Foundation
 
 Model dan Tokenizer siap digunakan langsung di lokal tanpa perlu melatih ulang. Anda dapat memuatnya melalui beberapa cara yang fleksibel:
 
-### 1. Pemuatan Cepat Satu Baris (Rekomendasi)
+### 1. Pemuatan Cepat (Rekomendasi)
 ```python
 from model import KronosPredictor
 
@@ -52,7 +42,7 @@ predictor = KronosPredictor.from_pretrained("models", exchange="idx", device="cu
 predictor = KronosPredictor.from_pretrained("andreiramani/kronos-financial", exchange="idx")
 ```
 
-### 2. Pemuatan Terpisah (Manual / Fleksibel)
+### 2. Pemuatan Manual / Fleksibel
 ```python
 from model import KronosTokenizer, Kronos, KronosPredictor
 
@@ -68,18 +58,9 @@ model = Kronos.from_pretrained("outputs/idx/predictor/best_model")
 predictor = KronosPredictor(model, tokenizer, device="cuda:0", max_context=512)
 ```
 
-### 3. Pengemasan Otomatis Checkpoint (`scripts/package_models.py`)
-Untuk mengonversi checkpoint lokal ke format folder tunggal `models/`:
-```bash
-python scripts/package_models.py --exchange idx
-```
-Output tersimpan rapi tanpa tabrakan nama:
-* `models/idx_tokenizer.safetensors` + `models/idx_tokenizer.json`
-* `models/idx_predictor.safetensors` + `models/idx_predictor.json`
-
 ---
 
-## 🛠️ Persyaratan Lingkungan
+## 🛠️ Environment
 
 Dependensi utama:
 - `torch>=2.0.0` (dengan akselerasi CUDA)
@@ -100,19 +81,12 @@ Kronos-FT dilatih pada dataset multi-resolusi berskala masif yang mencakup **48.
 * 🇮🇳 **NSE (India):** 21.49M bar (30 saham Nifty 50, kedalaman intraday 7.5+ tahun tervalidasi).
 
 > 📖 **Dokumentasi Lengkap Dataset:**  
-> Rincian tabel durasi kalender, tanggal mulai/selesai, kedalaman bar per timeframe, dan profil mikrostruktur data dapat dibaca pada [**`docs/DATASET.md`**](docs/DATASET.md).
+> Rincian tabel durasi kalender, tanggal mulai/selesai, kedalaman bar per timeframe, dan profil mikrostruktur data dapat dibaca pada [**`DATASET.md`**](docs/DATASET.md).
 
 ---
 
 ## 👤 Pengembang & Fine-Tuner
 - **Lead / Fine-Tuner:** [Andrei Ramani](https://www.linkedin.com/in/andreiramani/)
-
----
-
-## 📜 Lisensi & Atribusi
-Base model, original work, and paper:
-*Shi et al., "Kronos: A Foundation Model for the Language of Financial Markets", AAAI 2026 / arXiv:2508.02739.*  
-Diadaptasi untuk ekosistem kuantitatif pasar modal multi-bursa (IDX, NASDAQ, TSE, NSE).
 
 ---
 
@@ -126,3 +100,11 @@ Diadaptasi untuk ekosistem kuantitatif pasar modal multi-bursa (IDX, NASDAQ, TSE
 >
 > Pengguna memikul tanggung jawab penuh secara mandiri atas seluruh keputusan transaksi (*Do Your Own Research* / DYOR) dan pengelolaan risiko (*risk management*). Pengembang dan kontributor dibebaskan dari segala bentuk tuntutan dan tidak bertanggung jawab atas kerugian finansial langsung maupun tidak langsung yang timbul dari penggunaan model ini.
 
+---
+
+## 📜 Lisensi & Atribusi
+Base model, original work, and paper:
+*Shi et al., "Kronos: A Foundation Model for the Language of Financial Markets", AAAI 2026 / arXiv:2508.02739.*  
+Diadaptasi untuk ekosistem kuantitatif pasar modal multi-bursa (IDX, NASDAQ, TSE, NSE).
+
+---
