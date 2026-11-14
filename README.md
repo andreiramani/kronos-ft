@@ -33,30 +33,37 @@ Fine-tuning the quantitative foundation model **Kronos** (Shi, et al., *A Founda
 
 ## 🚀 Quickstart & Model Inference
 
-Model weights and tokenizers are hosted at [**andreiramani/kronos-ft**](https://huggingface.co/andreiramani/kronos-ft) and pre-calibrated for local inference without retraining. You can load them via multiple flexible options (example below for the IDX market):
+Model weights and tokenizers are hosted at [**andreiramani/kronos-ft**](https://huggingface.co/andreiramani/kronos-ft). You can load them via multiple flexible options (example below for the IDX market):
 
 ### 1. Fast One-Line Loading (Recommended)
 ```python
 from model import KronosPredictor
 
-# Flat Directory Mode (models/idx_tokenizer.safetensors & idx_predictor.safetensors)
+# Mode A: Flat Directory Mode (auto-detects models/{exchange}_model.safetensors & models/{exchange}_tokenizer.safetensors)
 predictor = KronosPredictor.from_pretrained("models", exchange="idx", device="cuda:0")
 
-# Or directly from the Hugging Face Hub (auto-resolves subfolder="idx"):
-predictor = KronosPredictor.from_pretrained("andreiramani/kronos-ft", exchange="idx")
+# Mode B: Explicit Safetensors File Paths (predictor weights first, tokenizer weights second)
+predictor = KronosPredictor.from_pretrained(
+    "models/idx_model.safetensors",
+    "models/idx_tokenizer.safetensors",
+    device="cuda:0"
+)
+
+# Mode C: Directly from the Hugging Face Hub (auto-resolves subfolder="idx"):
+predictor = KronosPredictor.from_pretrained("andreiramani/kronos-ft", exchange="idx", device="cuda:0")
 ```
 
 ### 2. Manual / Granular Loading
 ```python
 from model import KronosTokenizer, Kronos, KronosPredictor
 
-# Option A: Directly from single-file .safetensors checkpoints
+# Directly from .safetensors files in the 'models/' directory
 tokenizer = KronosTokenizer.from_pretrained("models/idx_tokenizer.safetensors")
-model = Kronos.from_pretrained("models/idx_predictor.safetensors")
+model = Kronos.from_pretrained("models/idx_model.safetensors")
 
-# Option B: From separate directory / Hugging Face layout
-tokenizer = KronosTokenizer.from_pretrained("outputs/idx/tokenizer/best_model")
-model = Kronos.from_pretrained("outputs/idx/predictor/best_model")
+# (Alternative for Option A: load from 'models/' folder using filename_prefix)
+# tokenizer = KronosTokenizer.from_pretrained("models", filename_prefix="idx_tokenizer")
+# model = Kronos.from_pretrained("models", filename_prefix="idx_model")
 
 # Initialize inference predictor engine
 predictor = KronosPredictor(model, tokenizer, device="cuda:0", max_context=512)
