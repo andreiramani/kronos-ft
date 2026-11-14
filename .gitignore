@@ -59,11 +59,8 @@ kaggle.json
 .git-credentials
 .gitconfig.local
 
-# local configs
-configs/**/*.local.yaml
-configs/**/*.local.yml
-configs/**/*.secret.yaml
-configs/**/*.secret.yml
+# local configs & environments
+configs/
 local_settings.py
 secrets.yaml
 secrets.json
@@ -73,9 +70,32 @@ secrets.json
 # =============
 # 2. Data
 # =============
-# Full raw and processed dataset directory
-data/
-data/**
+# Ignore data directory contents by default
+data/*
+# Allow exchange subdirectories (idx, nasdaq, nse, tse, etc.) to be traversed
+!data/*/
+# Ignore all timeframe directories by default (intraday, weekly, etc.)
+data/*/*
+
+# IDX intraday data
+data/idx/1T/
+data/idx/3T/
+data/idx/5T/
+data/idx/15T/
+data/idx/30T/
+data/idx/1H/
+data/idx/W/
+data/idx/1T/**
+data/idx/3T/**
+data/idx/5T/**
+data/idx/15T/**
+data/idx/30T/**
+data/idx/1H/**
+data/idx/W/**
+
+# Whitelist daily datasets
+!data/*/D/
+!data/*/D/**
 
 # Binary & tabular data formats
 *.csv
@@ -91,6 +111,16 @@ data/**
 *.hdf5
 *.mat
 
+# Re-include daily dataset files across all exchanges
+!data/*/D/*.csv
+!data/*/D/*.npz
+!data/*/D/*.parquet
+!data/*/D/**
+
+# Tickers & symbol lists
+tickers.txt
+
+
 # db
 *.duckdb
 *.duckdb.wal
@@ -104,18 +134,26 @@ data/**
 
 
 # =============
-# 3. Model
+# 3. Model & Code
 # =============
-# Pretrained
-pretrained/
+# Model source, pretrained & local weights
+model/
 models/
+pretrained/
 checkpoints/
 checkpoint-*/
 
-# Training
+# Training outputs
 outputs/*
 !outputs/evaluations/
-!outputs/evaluations/**
+!outputs/evaluations/**/
+outputs/evaluations/**
+!outputs/evaluations/**/
+!outputs/evaluations/**/*.png
+!outputs/evaluations/*.png
+
+# Scripts
+scripts/
 
 # Weight
 *.safetensors
@@ -223,7 +261,7 @@ $RECYCLE.BIN/
 
 
 # =============
-# 8. temp
+# 8. temp & scratch
 # =============
 *.tmp
 *.temp
@@ -234,4 +272,9 @@ $RECYCLE.BIN/
 scratch/
 tmp/
 temp/
-Eval*
+/Eval*
+[pP][lL][aA][nN]*
+
+# Re-include evaluation png graphs
+!outputs/evaluations/**/*.png
+!outputs/evaluations/*.png

@@ -6,12 +6,12 @@
 
 ---
 
-Fine-tuning the quantitative foundation model **Kronos** (*A Foundation Model for the Language of Financial Markets*, Tsinghua University, AAAI 2026) tailored specifically across equity markets:
+Fine-tuning the quantitative foundation model **Kronos** (Shi, et al., *A Foundation Model for the Language of Financial Markets*, Tsinghua University, AAAI 2026) tailored specifically across equity markets:
 
-1. **IDX** (Indonesia Stock Exchange) 🇮🇩 - *Active*
-2. **NASDAQ** (United States) 🇺🇸 - *Data Ready*
-3. **TSE** (Tokyo Stock Exchange, Japan) 🇯🇵 - *Data Ready*
-4. **NSE** (National Stock Exchange of India) 🇮🇳 - *Data Ready*
+1. **IDX** (Indonesia Stock Exchange) 🇮🇩 - *Ready*
+2. **NASDAQ** (United States) 🇺🇸 - *on-going*
+3. **TSE** (Tokyo Stock Exchange, Japan) 🇯🇵 - *on-going*
+4. **NSE** (National Stock Exchange of India) 🇮🇳 - *phase 1-reject*
 
 ---
 
@@ -26,14 +26,14 @@ Fine-tuning the quantitative foundation model **Kronos** (*A Foundation Model fo
   - `1H` (1-hour)
   - `D` (Daily)
   - `W` (Weekly)
-- **Zero-Lookahead Temporal Splitting:** Dataset partitioning (Train 80%, Val 10%, Test 10%) strictly enforces chronological ordering with temporal gap guards to prevent future lookahead leakage.
-- **Dual-Model Hub Loading:** Supports flexible loading from either the Hugging Face Hub or local directories.
+- **Zero-Lookahead Temporal Splitting:** Dataset partitioning strictly enforces chronological ordering with temporal gap guards to prevent future lookahead leakage.
+- **Dual-Model Hub Loading:** Supports flexible loading from either the [Hugging Face Hub](https://huggingface.co/andreiramani/kronos-ft) (under per-market subfolders, e.g., `idx/`) or local directories.
 
 ---
 
 ## 🚀 Quickstart & Model Inference
 
-Model weights and tokenizers are pre-calibrated and ready for local inference without retraining. You can load them via multiple flexible options (example command below for IDX market):
+Model weights and tokenizers are hosted at [**andreiramani/kronos-ft**](https://huggingface.co/andreiramani/kronos-ft) and pre-calibrated for local inference without retraining. You can load them via multiple flexible options (example below for the IDX market):
 
 ### 1. Fast One-Line Loading (Recommended)
 ```python
@@ -42,7 +42,7 @@ from model import KronosPredictor
 # Flat Directory Mode (models/idx_tokenizer.safetensors & idx_predictor.safetensors)
 predictor = KronosPredictor.from_pretrained("models", exchange="idx", device="cuda:0")
 
-# Or directly from the Hugging Face Hub:
+# Or directly from the Hugging Face Hub (auto-resolves subfolder="idx"):
 predictor = KronosPredictor.from_pretrained("andreiramani/kronos-ft", exchange="idx")
 ```
 
@@ -110,3 +110,4 @@ Kronos-FT was trained on a massive multi-resolution dataset comprising **48,294,
 Base model, original work, and paper:
 *Shi et al., "Kronos: A Foundation Model for the Language of Financial Markets", AAAI 2026 / arXiv:2508.02739.*  
 Adapted for quantitative financial multi-exchange ecosystems (IDX, NASDAQ, TSE, NSE).
+

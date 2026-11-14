@@ -1,6 +1,6 @@
-# Kronos-FT NASDAQ Evaluation (10 Institutional Benchmarks)
+# Kronos-FT NASDAQ Evaluation
 
-This document summarizes the out-of-sample performance and training dynamics of the **Kronos-FT NASDAQ** model (*Stage 1 Tokenizer & Stage 2 Predictor*) evaluated against the **pretrained base Kronos** across 10 large-cap NASDAQ institutional benchmarks.
+This document summarizes the out-of-sample performance and training dynamics of the **Kronos-FT NASDAQ** model evaluated against the **pretrained base Kronos**.
 
 ---
 
@@ -18,7 +18,7 @@ Evaluation runs strictly on the held-out test split (last 10% of each time serie
 - **Forecast Horizons:**
   - **Daily (`D`):** **5 bars** (one calendar trading week, optimal swing horizon).
   - **Intraday (`5T`, `30T`, `1H`):** **16 bars**.
-- **Timeframes Evaluated:** `5T`, `30T`, `1H`, and `D` — **40 cases total** (10 tickers × 4 timeframes).
+- **Timeframes Evaluated:** `5T`, `30T`, `1H`, and `D` - **40 cases total** (10 tickers × 4 timeframes).
 - **Evaluation Metrics:**
   - **Directional Hit (`dir_acc`):** Binary accuracy of the predicted return direction at the horizon endpoint.
   - **Path Correlation (`IC`):** Pearson information coefficient between predicted trajectory and ground truth path.
