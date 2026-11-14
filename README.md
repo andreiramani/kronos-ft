@@ -9,7 +9,7 @@
 Fine-tuning the quantitative foundation model **Kronos** (Shi, et al., *A Foundation Model for the Language of Financial Markets*, Tsinghua University, AAAI 2026) tailored specifically across equity markets:
 
 1. **IDX** (Indonesia Stock Exchange) 🇮🇩 - *Ready*
-2. **NASDAQ** (United States) 🇺🇸 - *on-going*
+2. **NASDAQ** (United States) 🇺🇸 - *Ready*
 3. **TSE** (Tokyo Stock Exchange, Japan) 🇯🇵 - *on-going*
 4. **NSE** (National Stock Exchange of India) 🇮🇳 - *phase 1-reject*
 
@@ -117,4 +117,7 @@ Kronos-FT was trained on a massive multi-resolution dataset comprising **48,294,
 Base model, original work, and paper:
 *Shi et al., "Kronos: A Foundation Model for the Language of Financial Markets", AAAI 2026 / arXiv:2508.02739.*  
 Adapted for quantitative financial multi-exchange ecosystems (IDX, NASDAQ, TSE, NSE).
+
+This project is licensed under the [MIT License](LICENSE).
+
 
