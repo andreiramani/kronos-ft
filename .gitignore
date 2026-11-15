@@ -1,0 +1,281 @@
+# =============
+# 1. Keys
+# =============
+# Environment variables & local secrets
+.env
+.env.*
+*.env
+.env.local
+.env.*.local
+.env.development
+.env.production
+.env.test
+!.env.example
+!.env.template
+
+# keys
+*.pem
+*.key
+*.pkcs12
+*.pfx
+*.p12
+*.crt
+*.cer
+*.der
+*.csr
+*.keystore
+*.jks
+id_rsa*
+id_ed25519*
+id_ecdsa*
+id_dsa*
+known_hosts
+authorized_keys
+
+# cloud
+.aws/
+credentials
+.azure/
+*gcp*.json
+*service_account*.json
+client_secret*.json
+*credentials*.json
+.gcloud/
+.kube/
+kubeconfig
+
+# platforms
+.cache/
+hf_*
+wandb/
+.wandb*
+mlruns/
+mlartifacts/
+kaggle.json
+.kaggle/
+*.token
+*token*.json
+*api_key*
+.git-credentials
+.gitconfig.local
+
+# local configs & environments
+configs/
+local_settings.py
+secrets.yaml
+secrets.json
+*.secret
+
+
+# =============
+# 2. Data
+# =============
+# Ignore data directory contents by default
+data/*
+# Allow exchange subdirectories (idx, nasdaq, nse, tse, etc.) to be traversed
+!data/*/
+# Ignore all timeframe directories by default (intraday, weekly, etc.)
+data/*/*
+
+# IDX intraday data
+data/idx/1T/
+data/idx/3T/
+data/idx/5T/
+data/idx/15T/
+data/idx/30T/
+data/idx/1H/
+data/idx/W/
+data/idx/1T/**
+data/idx/3T/**
+data/idx/5T/**
+data/idx/15T/**
+data/idx/30T/**
+data/idx/1H/**
+data/idx/W/**
+
+# Whitelist daily datasets
+!data/*/D/
+!data/*/D/**
+
+# Binary & tabular data formats
+*.csv
+*.tsv
+*.parquet
+*.feather
+*.arrow
+*.npz
+*.npy
+*.pkl
+*.pickle
+*.h5
+*.hdf5
+*.mat
+
+# Re-include daily dataset files across all exchanges
+!data/*/D/*.csv
+!data/*/D/*.npz
+!data/*/D/*.parquet
+!data/*/D/**
+
+# Tickers & symbol lists
+tickers.txt
+
+
+# db
+*.duckdb
+*.duckdb.wal
+*.db
+*.sqlite
+*.sqlite3
+*.kdb
+*.rdb
+*.sql
+*.dump
+
+
+# =============
+# 3. Model & Code
+# =============
+# Model source, pretrained & local weights
+model/
+models/*
+!models/.gitkeep
+pretrained/
+checkpoints/
+checkpoint-*/
+
+# Training outputs
+outputs/*
+!outputs/evaluations/
+!outputs/evaluations/**/
+outputs/evaluations/**
+!outputs/evaluations/**/
+!outputs/evaluations/**/*.png
+!outputs/evaluations/*.png
+
+# Scripts
+scripts/
+
+# Weight
+*.safetensors
+*.pt
+*.pth
+*.bin
+*.ckpt
+*.onnx
+*.gguf
+*.tflite
+*.pb
+*.engine
+
+
+# =============
+# 4. LOGS, etc
+# =============
+logs/
+*.log
+*.out
+*.err
+core
+core.*
+*.dmp
+crash*.log
+.coverage
+.coverage.*
+htmlcov/
+*.prof
+*.pstats
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+
+# =============
+# 5. JUPYTER
+# =============
+.ipynb_checkpoints/
+*-checkpoint.ipynb
+.jupyter/
+
+
+# =============
+# 6. PYTHON
+# =============
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.pyd
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+env.bak/
+venv.bak/
+
+# Packaging & builds
+build/
+dist/
+*.egg-info/
+*.egg
+pip-wheel-metadata/
+
+
+# =============
+# 7. os, ide
+# =============
+# Windows
+[Tt]humbs.db
+[Tt]humbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+[Dd]esktop.ini
+$RECYCLE.BIN/
+*.lnk
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+
+# IDEs & text editors
+.idea/
+.vscode/*
+!.vscode/extensions.json
+*.swp
+*.swo
+*.sublime-workspace
+*.sublime-project
+.history/
+.agents/
+
+
+# =============
+# 8. temp & scratch
+# =============
+*.tmp
+*.temp
+*.bak
+*.backup
+*.old
+*.orig
+scratch/
+tmp/
+temp/
+/Eval*
+[pP][lL][aA][nN]*
+
+# Re-include evaluation png graphs
+!outputs/evaluations/**/*.png
+!outputs/evaluations/*.png
