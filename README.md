@@ -6,7 +6,7 @@
 
 ---
 
-Fine-tuned from the **Kronos** quantitative foundation model (Shi et al.,* A Foundation Model for the Language of Financial Markets, *Tsinghua University, AAAI 2026), with adaptations for specific stock markets:
+Fine-tuned from the **Kronos** quantitative foundation model (Shi et al., *A Foundation Model for the Language of Financial Markets*, Tsinghua University, AAAI 2026), with adaptations for specific stock markets:
 
 1. **IDX** (Indonesia Stock Exchange) 🇮🇩 - *Ready (DYOR)*
 2. **NASDAQ** (United States) 🇺🇸 - *Ready (DYOR)*
